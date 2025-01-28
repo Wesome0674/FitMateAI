@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('@/assets/fonts/HelveticaNeueMedium.otf') format('truetype');
+    font-weight: medium;
+    font-style: normal;
+  }
+  
+  
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }

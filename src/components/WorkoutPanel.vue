@@ -1,5 +1,6 @@
 <script setup lang="ts">
  import NavBar from './navigation/NavBar.vue'
+ import TestData from './TestData.vue'
 
 
 
@@ -8,6 +9,7 @@
 
 <template>
     <NavBar />
+    <TestData />
 </template>
 
 <style scoped>

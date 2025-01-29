@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import './index.css'
-
-import WorkoutPanel from './components/WorkoutPanel.vue';
-
+import NavBar from './components/navigation/NavBar.vue';
+import TopNav from './components/navigation/TopNav.vue';
 </script>
 
 <template>
-
-  <WorkoutPanel />
+  <TopNav />
+  <main>
+    <RouterView />
+  </main>
+  <NavBar />
 </template>
 
 <style scoped></style>

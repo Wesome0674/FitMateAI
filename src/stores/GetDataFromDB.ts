@@ -12,15 +12,12 @@ type ApiResponse = {
 };
 
 export const useDbData = defineStore('getDbData', () => {
-  // Définir les états avec les types appropriés
-  const data = ref<ApiResponse | null>(null); // L'API renvoie un objet avec une clé `users`
+  const data = ref<ApiResponse | null>(null); 
   const isLoading = ref<boolean>(false);
   const error = ref<string | null>(null);
 
-  // URL de l'API
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  // Fonction pour récupérer les données
   const fetchData = async () => {
     isLoading.value = true;
     error.value = null;
@@ -32,7 +29,7 @@ export const useDbData = defineStore('getDbData', () => {
         throw new Error('Network response was not ok');
       }
 
-      const jsonData: ApiResponse = await response.json(); // Typage explicite
+      const jsonData: ApiResponse = await response.json(); 
       data.value = jsonData;
     } catch (err: any) {
       error.value = err.message;
@@ -41,9 +38,8 @@ export const useDbData = defineStore('getDbData', () => {
     }
   };
 
-  // Getters pour accéder aux données
-  const getData = computed(() => data.value); // Retourne l'objet complet
-  const getUsers = computed(() => data.value?.users || []); // Retourne uniquement la liste des utilisateurs
+  const getData = computed(() => data.value); 
+  const getUsers = computed(() => data.value?.users || []);
   const getLoadingStatus = computed(() => isLoading.value);
   const getError = computed(() => error.value);
 

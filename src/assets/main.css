@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('@/assets/fonts/HelveticaNeueMedium.otf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('@/assets/fonts/HelveticaNeueLight.otf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('@/assets/fonts/HelveticaNeueMedium.otf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --primary-color: #F69186;
+  --secondary-color: #0F172A;
+  --tercery-color: #425466;
+  --title : #0A2540;
+  --success: #31D0AA;
+  --error: #F12711;
+  --badge: #FFF4F4;
+  --button : #E2E8F0;
+}
+
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}

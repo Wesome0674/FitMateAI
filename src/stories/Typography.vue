@@ -1,35 +1,45 @@
 <template>
-  <p :class="classes" :style="style">
+  <component :is="tag" :class="classes">
     <slot></slot>
-  </p>
+  </component>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-
 const props = withDefaults(defineProps<{
   variant?: 'title' | 'subtitle' | 'h1' | 'h2' | 'h3' | "h4" | "h5" | "h6" | 'p' | 'span';
+  theme?: "primary" | "secondary" | "tercery" | "title-color" | "success" | "error" | "badge" | "button"
   weight?: 'light' | 'medium' | 'semibold';
   font?: 'Helvetica' | 'Inter'
-  color?: string;
 }>(), {
   variant: 'h3',
   weight: 'medium',
-  color: '#000',
+  theme: "secondary",
   font: "Helvetica"
 });
 
 const classes = computed(() => ({
   [`typography-${props.variant}`]: true,
   [`typography-${props.weight}`]: true,
-  [`typography-${props.font}`]: true
+  [`typography-${props.font}`]: true,
+  [`typography-${props.theme}`]: true,
 }));
 
-const style = computed(() => ({
-  color: props.color,
-}));
-
+const tag = computed(() => {
+  switch (props.variant) {
+    case 'h1': return 'h1';
+    case 'h2': return 'h2';
+    case 'h3': return 'h3';
+    case 'h4': return 'h4';
+    case 'h5': return 'h5';
+    case 'h6': return 'h6';
+    case 'title': return 'h1'; 
+    case 'subtitle': return 'h2'; 
+    case 'span': return 'span';
+    default: return 'p'; 
+  }
+});
 </script>
 
 <style scoped>
@@ -101,5 +111,37 @@ const style = computed(() => ({
 
 .typography-Inter {
   font-family: "Inter", serif;
+}
+
+.typography-primary {
+  color: var(--primary-color);
+}
+
+.typography-secondary {
+  color: var(--secondary-color);
+}
+
+.typography-tercery {
+  color: var(--tercery-color);
+}
+
+.typography-title-color {
+  color: var(--title);
+}
+
+.typography-success {
+  color: var(--success);
+}
+
+.typography-error {
+  color: var(--error);
+}
+
+.typography-badge {
+  color: var(--badge);
+}
+
+.typography-button {
+  color: var(--button);
 }
 </style>

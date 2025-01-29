@@ -1,16 +1,32 @@
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
+import { API_URL } from '@/config/apiUrls'
 
 export const useApiData = defineStore('getApiData', () => {
-
-    const data = ref<any[]>([])
+    const state = reactive({
+        data: []
+    })
     const isLoading = ref<boolean>(false)
     const error = ref<string | null>(null)
 
     const RAPIDAPI_HOST = import.meta.env.VITE_RAPIDAPI_HOST
     const RAPIDAPI_KEY = import.meta.env.VITE_RAPIDAPI_KEY
 
-    const fetchData = async (url: string) => {
+    const buildUrl = (urlKey: keyof typeof API_URL, params?: Record<string, string>) => {
+        let url = API_URL[urlKey]
+
+        if (params) {
+            for (const key in params) {
+                url = url.replace(`{${key}}`, params[key])
+            }
+        }
+
+        return url
+    }
+
+    const fetchData = async (urlKey: keyof typeof API_URL, params?: Record<string, string>) => {
+        const url = buildUrl(urlKey, params)
+
         isLoading.value = true
         error.value = null
 
@@ -27,8 +43,8 @@ export const useApiData = defineStore('getApiData', () => {
                 throw new Error('Network response was not ok')
             }
 
-            const jsonData = await response.json()
-            data.value = jsonData
+            state.data = await response.json()
+
         } catch (err: any) {
             error.value = err.message
         } finally {
@@ -36,18 +52,15 @@ export const useApiData = defineStore('getApiData', () => {
         }
     }
 
-    const getData = computed(() => data.value)
+    const getData = computed(() => state.data)
     const getLoadingStatus = computed(() => isLoading.value)
     const getError = computed(() => error.value)
 
     return {
-
-        data,
+        state,
         isLoading,
         error,
-
         fetchData,
-
         getData,
         getLoadingStatus,
         getError

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="mb-[100px] box">
+    <div class="pb-[100px] box">
         <MyRoutines />
     </div>
 

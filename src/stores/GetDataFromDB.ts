@@ -1,36 +1,30 @@
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { defineStore } from 'pinia';
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
-
-type ApiResponse = {
-  users: User[];
-};
+import { DB_URL } from '@/config/DBurl';
 
 export const useDbData = defineStore('getDbData', () => {
-  const data = ref<ApiResponse | null>(null); 
+  const state = reactive({
+    data: []
+  })
   const isLoading = ref<boolean>(false);
   const error = ref<string | null>(null);
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  const fetchData = async () => {
+  const fetchData = async (urlKey: keyof typeof DB_URL) => {
+    const url = `${BACKEND_URL}/${DB_URL[urlKey]}`;
     isLoading.value = true;
     error.value = null;
 
     try {
-      const response = await fetch(BACKEND_URL);
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const jsonData: ApiResponse = await response.json(); 
-      data.value = jsonData;
+      state.data = await response.json();
+
     } catch (err: any) {
       error.value = err.message;
     } finally {
@@ -38,18 +32,16 @@ export const useDbData = defineStore('getDbData', () => {
     }
   };
 
-  const getData = computed(() => data.value); 
-  const getUsers = computed(() => data.value?.users || []);
+  const getData = computed(() => state.data);
   const getLoadingStatus = computed(() => isLoading.value);
   const getError = computed(() => error.value);
 
   return {
-    data,
+    state,
     isLoading,
     error,
     fetchData,
     getData,
-    getUsers,
     getLoadingStatus,
     getError,
   };

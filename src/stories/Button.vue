@@ -1,5 +1,8 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style">{{ label }} </button>
+  <button type="button" :class="classes" @click="onClick" :style="style">
+    {{ label }}
+      <img class="button-icon" v-if="icon" :src="icon" alt="icon" />
+  </button>
 </template>
 
 <script lang="ts" setup>
@@ -11,7 +14,7 @@ const props = withDefaults(defineProps<{
   primary?: boolean,
   size?: 'small' | 'medium' | 'large',
   backgroundColor?: string,
-
+  icon?: string, 
 }>(), { primary: false });
 
 const emit = defineEmits<{
@@ -30,7 +33,6 @@ const style = computed(() => ({
 }));
 
 const onClick = () => {
-  emit("click", 1)
+  emit("click", 1);
 };
-
 </script>

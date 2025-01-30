@@ -4,6 +4,7 @@ import Nutrition from '@/views/Nutrition.vue'
 import Recovery from '@/views/Recovery.vue'
 import AppleHealth from '@/views/AppleHealth.vue'
 import Overview from '@/views/Overview.vue'
+import AddRoutine from '@/views/AddRoutine.vue'
 
 
 const router = createRouter({
@@ -18,6 +19,11 @@ const router = createRouter({
       path: '/workout',
       name: 'workout',
       component: WorkoutPanel ,
+    },
+    {
+      path: '/addworkout',
+      name: 'addWorkout',
+      component: AddRoutine ,
     },
     {
       path: '/nutrition',

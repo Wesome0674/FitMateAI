@@ -39,3 +39,10 @@
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
+
+.box {
+  max-width: calc(100% - 20px);
+  margin: 0 auto;
+  padding-top: 130px;
+  min-height: 100vh;
+}

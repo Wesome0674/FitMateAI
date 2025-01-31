@@ -11,7 +11,7 @@ export const useDbData = defineStore('getDbData', () => {
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-  const fetchData = async (urlKey: keyof typeof DB_URL) => {
+  const fetchDBData = async (urlKey: keyof typeof DB_URL) => {
     const url = `${BACKEND_URL}/${DB_URL[urlKey]}`;
     isLoading.value = true;
     error.value = null;
@@ -40,7 +40,7 @@ export const useDbData = defineStore('getDbData', () => {
     state,
     isLoading,
     error,
-    fetchData,
+    fetchDBData,
     getData,
     getLoadingStatus,
     getError,

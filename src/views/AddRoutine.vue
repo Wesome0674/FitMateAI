@@ -62,7 +62,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter()
 
-const { fetchData, isLoading, error, state } = useApiData();
+const { fetchData, isLoading, state } = useApiData();
 const { saveData } = usePostData();
 
 const searchQuery = ref('');
@@ -73,21 +73,22 @@ onMounted(() => {
   fetchData('exercises');
 });
 
-const saveRoutine = () => {
+const saveRoutine = async () => {
   const routine = {
     name: routineName.value,
     exercises: selectedExercises.value,
   };
+
   if (routineName.value.length < 1) {
     alert('Please enter a name for the routine');
     return;
+  } if (routine.exercises.length < 1) {
+    alert('Please select at least one exercise');
   } else {
-    console.log(routine);
-    saveData(routine);
+    await saveData(routine);
     router.push('/workout');
   }
 };
-
 const addExercice = (exercice) => {
   if (!selectedExercises.value.some((e) => e.id === exercice.id)) {
     selectedExercises.value.push(exercice);

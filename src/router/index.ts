@@ -5,6 +5,8 @@ import Recovery from '@/views/Recovery.vue'
 import AppleHealth from '@/views/AppleHealth.vue'
 import Overview from '@/views/Overview.vue'
 import AddRoutine from '@/views/AddRoutine.vue'
+import StartRoutine from '@/views/StartRoutine.vue'
+import PageError from '@/views/PageError.vue'
 
 
 const router = createRouter({
@@ -26,6 +28,11 @@ const router = createRouter({
       component: AddRoutine ,
     },
     {
+      path: '/routine/:id',
+      name: 'routine',
+      component: StartRoutine ,
+    },
+    {
       path: '/nutrition',
       name: 'nutrition',
       component: Nutrition ,
@@ -39,6 +46,11 @@ const router = createRouter({
       path: '/applehealth',
       name: 'applehealth',
       component: AppleHealth ,
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: PageError ,
     },
   ],
 })

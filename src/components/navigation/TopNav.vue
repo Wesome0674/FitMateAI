@@ -3,7 +3,7 @@
 </script>
 
 <template>
-   <div class="w-full  fixed top-0 bg-white border-b border-b-[#475569]/10 border-dashed  px-[20px] pt-[25px] pb-[15px] flex items-center justify-between">
+   <div class="w-full fixed top-0 bg-white border-b border-b-[#475569]/10 border-dashed  px-[20px] pt-[25px] pb-[15px] flex items-center justify-between">
         <div class="space-y-[12px]">
             <Typography variant="h1" >Hello Ralph Edwards</Typography>
             <Typography variant="h4" theme="tercery" >Have a nice Day !</Typography>

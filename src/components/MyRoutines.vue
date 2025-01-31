@@ -19,9 +19,7 @@
 
       <div class="w-full gap-[8px] flex items-center py-[10px] px-[15px] rounded-[8px] border border-[#E2E8F0]">
         <img src="@/assets/img/svg/search.svg" alt="search" />
-        <input 
-          class="w-full border-none outline-none text-[#425466]" 
-          placeholder="Search a Routine" 
+        <input class="w-full border-none outline-none text-[#425466]" placeholder="Search a Routine"
           v-model="searchQuery" />
       </div>
     </div>
@@ -33,9 +31,11 @@
           <img src="@/assets/img/svg/grip.svg" alt="more" />
         </div>
         <div class="space-y-[5px]">
-          <Typography v-for="exercice in routine.exercises" :key="exercice.id" variant="h6">{{ exercice.name }}</Typography>
+          <Typography v-for="exercice in routine.exercises.slice(0, 2)" :key="exercice.id" variant="h6">{{ exercice.name
+            }}</Typography>
+             <Typography v-if="routine.exercises.length > 2" variant="h6">...</Typography>
         </div>
-        <Button class="w-full" label="Start now" :primary="false" />
+        <Button @click="goToSlugPage(routine.id)" class="w-full" label="Start now" :primary="false" />
       </div>
     </div>
   </div>
@@ -46,14 +46,15 @@ import { onMounted, computed, ref, watch } from 'vue'
 import Typography from '@/stories/Typography.vue'
 import Button from '@/stories/Button.vue'
 import { useDbData } from '@/stores/GetDataFromDB'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
 const searchQuery = ref('')
+const router = useRouter()
 
-const { fetchData, isLoading, error, state } = useDbData()
+const { fetchDBData, isLoading, error, state } = useDbData()
 
 onMounted(() => {
-  fetchData('routines')
+  fetchDBData('routines')
 })
 
 const filteredRoutines = computed(() => {
@@ -66,6 +67,9 @@ const filteredRoutines = computed(() => {
   return filtered.sort((a, b) => a.name.localeCompare(b.name))
 })
 
+const goToSlugPage = (id) => {
+  router.push(`/routine/${id}`)
+}
 
 watch(() => state.data, (newData) => {
   console.log('Données mises à jour:', newData)

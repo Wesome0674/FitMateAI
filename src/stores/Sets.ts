@@ -9,6 +9,7 @@ export const useSetData = defineStore('addSets', () => {
                 id: 1,
                 weight: 0,
                 reps: 0,
+                done: false
             }
         ]
     })
@@ -18,6 +19,7 @@ export const useSetData = defineStore('addSets', () => {
             id: state.sets.length + 1,
             weight: 0,
             reps: 0,
+            done: false
         })
     }
 
@@ -25,6 +27,7 @@ export const useSetData = defineStore('addSets', () => {
         return state.sets.reduce((acc, set) => acc + set.weight, 0)
     });
 
+    
     const calculateTotalReps = computed(() => {
         return state.sets.reduce((acc, set) => acc + set.reps, 0)
     })

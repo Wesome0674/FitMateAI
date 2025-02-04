@@ -31,7 +31,7 @@
   --title : #0A2540;
   --success: #31D0AA;
   --error: #F12711;
-  --badge: #FFF4F4;
+  --badge: #F4F4F5;
   --button : #E2E8F0;
 }
 
@@ -45,4 +45,19 @@ body {
   margin: 0 auto;
   padding-top: 130px;
   min-height: 100vh;
+}
+
+.slideIn {
+  animation: slidein 0.5s ease-in-out forwards
+}
+
+@keyframes slidein {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+  
 }

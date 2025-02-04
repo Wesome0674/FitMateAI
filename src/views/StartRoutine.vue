@@ -62,7 +62,7 @@
         </div>
 
         <div class="space-y-[20px]">
-          <div class="flex items-center gap-2">
+          <div @click="isTimerVisible = !isTimerVisible" class="flex items-center gap-2">
             <Typography theme="primary" variant="h5">Rest Timer</Typography>
             <img class="w-4 aspect-square" src="@/assets/img/svg/alarm-clock.svg" alt="routine" />
           </div>
@@ -77,13 +77,15 @@
             <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
           </div>
 
-          <Button @click="addSets(exercise.id)" icon="../../public/pen-line.svg" label="Add a set" :primary="false"
-            class="w-full" />
+          <Button @click="addSets(exercise.id)" label="Add a set" :primary="false" class="w-full" />
           <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
         </div>
+
       </div>
     </div>
+
   </div>
+  <RestTimer @toggle="isTimerVisible = !isTimerVisible" v-if="isTimerVisible === true" />
 </template>
 
 <script setup>
@@ -94,6 +96,7 @@ import { useRoute, useRouter } from "vue-router";
 import Button from "@/stories/Button.vue";
 import SetsInput from "@/components/SetsInput.vue";
 import { useSetData } from "@/stores/Sets";
+import RestTimer from "@/components/RestTimer.vue";
 
 const setDataStore = useSetData();
 const { addSets, getSets, calculateTotalWeight, calculateTotalReps } = setDataStore;
@@ -103,6 +106,7 @@ const { fetchDBData, state: dbState } = useDbData();
 const route = useRoute();
 const router = useRouter();
 const slugRoute = route.params.id;
+const isTimerVisible = ref(false);
 
 const routine = computed(() => {
   const routineList = Array.isArray(dbState.data.routines) ? dbState.data.routines : [];

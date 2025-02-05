@@ -9,7 +9,7 @@
         </div>
 
 
-        <Button @click="" icon="../../public/log-in.svg" label="End Workout" primary size="large" />
+        <Button @click="router.push('/WorkoutStats')" icon="../../public/log-in.svg" label="End Workout" primary size="large" />
 
       </div>
       <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
@@ -62,11 +62,6 @@
         </div>
 
         <div class="space-y-[20px]">
-          <div @click="isTimerVisible = !isTimerVisible" class="flex items-center gap-2">
-            <Typography theme="primary" variant="h5">Rest Timer</Typography>
-            <img class="w-4 aspect-square" src="@/assets/img/svg/alarm-clock.svg" alt="routine" />
-          </div>
-
           <div class="space-y-[10px]">
             <div v-for="set in getSets(exercise.id)" :key="set.id">
               <SetsInput @update:volume="updateVolume(exercise.id, set.id, $event)"
@@ -85,7 +80,9 @@
     </div>
 
   </div>
-  <RestTimer @toggle="isTimerVisible = !isTimerVisible" v-if="isTimerVisible === true" />
+  <RestTimer :exerciceName="currentExerciseName" @startTimer="startTimer" @toggle="isTimerVisible = !isTimerVisible"
+    v-if="isTimerVisible === true" />
+
 </template>
 
 <script setup>
@@ -97,6 +94,8 @@ import Button from "@/stories/Button.vue";
 import SetsInput from "@/components/SetsInput.vue";
 import { useSetData } from "@/stores/Sets";
 import RestTimer from "@/components/RestTimer.vue";
+
+
 
 const setDataStore = useSetData();
 const { addSets, getSets, calculateTotalWeight, calculateTotalReps } = setDataStore;
@@ -124,6 +123,13 @@ const totalSets = computed(() => {
   return routine.value.exercises.reduce((acc, exercise) => acc + getSets(exercise.id).length, 0);
 });
 
+const currentExerciseName = ref("");
+
+const openTimer = (exerciseName) => {
+  currentExerciseName.value = exerciseName;
+  isTimerVisible.value = true;
+};
+
 const totalWeight = computed(() => {
   if (!routine.value) return 0;
   return routine.value.exercises.reduce((acc, exercise) => acc + calculateTotalWeight(exercise.id), 0);
@@ -136,6 +142,7 @@ const totalReps = computed(() => {
 
 const updateVolume = (exerciseId, setId, value) => {
   setDataStore.updateSet(exerciseId, setId, "weight", value);
+
 };
 
 const updateReps = (exerciseId, setId, value) => {
@@ -144,6 +151,10 @@ const updateReps = (exerciseId, setId, value) => {
 
 const updateDone = (exerciseId, setId, value) => {
   setDataStore.updateSet(exerciseId, setId, "done", value);
+  if (value) {
+    openTimer(routine.value.exercises.find(ex => ex.id === exerciseId)?.name || "Exercise")
+
+  }
 };
 
 const descriptionsVisibility = ref({});

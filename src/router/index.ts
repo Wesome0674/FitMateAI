@@ -7,6 +7,7 @@ import Overview from '@/views/Overview.vue'
 import AddRoutine from '@/views/AddRoutine.vue'
 import StartRoutine from '@/views/StartRoutine.vue'
 import PageError from '@/views/PageError.vue'
+import WorkoutStats from '@/views/WorkoutStats.vue'
 
 
 const router = createRouter({
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/routine/:id',
       name: 'routine',
       component: StartRoutine ,
+    },
+    {
+      path: '/workoutStats',
+      name: 'workoutStats',
+      component: WorkoutStats,
     },
     {
       path: '/nutrition',

@@ -9,7 +9,7 @@
         </div>
 
 
-        <Button @click="goToWorkoutStats" icon="../../public/log-in.svg" label="End Workout" primary size="large" />
+        <Button @click="goToWorkoutStats" icon="/public/log-in.svg" label="End Workout" primary size="large" />
 
 
       </div>
@@ -41,7 +41,7 @@
           <img src="@/assets/img/svg/biceps.svg" alt="routine" />
           <Typography variant="h2">Exercises</Typography>
         </div>
-        <Button @click="" icon="../../public/pen-line.svg" label="Edit Routine" primary size="large" />
+        <Button @click="" icon="/public/pen-line.svg" label="Edit Routine" primary size="large" />
       </div>
 
       <div v-for="(exercise, index) in routine.exercises" :key="index" class="pt-[30px] space-y-[40px]">
@@ -81,14 +81,14 @@
     </div>
 
   </div>
-  <RestTimer :exerciceName="currentExerciseName" @startTimer="startTimer" @toggle="isTimerVisible = !isTimerVisible"
+  <RestTimer :exerciceName="currentExerciseName" @toggle="isTimerVisible = !isTimerVisible"
     v-if="isTimerVisible === true" />
 
 </template>
 
 <script setup>
 import Typography from "@/stories/Typography.vue";
-import { useDbData } from "@/stores/GetDataFromDB";
+import { createDbDataStore } from "@/stores/GetDataFromDB";
 import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Button from "@/stories/Button.vue";
@@ -101,7 +101,9 @@ import RestTimer from "@/components/RestTimer.vue";
 const setDataStore = useSetData();
 const { addSets, getSets, calculateTotalWeight, calculateTotalReps } = setDataStore;
 
-const { fetchDBData, state: dbState } = useDbData();
+const dbData = createDbDataStore("routines");
+
+const { fetchDBData, state: dbState } = dbData;
 
 const route = useRoute();
 const router = useRouter();
@@ -147,14 +149,19 @@ const updateVolume = (exerciseId, setId, value) => {
 };
 
 const goToWorkoutStats = () => {
-  router.push({
-    path: `/WorkoutStats/${slugRoute}`,
-    query: {
-      sets: totalSets.value,
-      weight: totalWeight.value,
-      reps: totalReps.value
-    }
-  });
+  if (totalSets.value === 0) {
+    router.push("/workout");
+  } else {
+    router.push({
+      path: `/WorkoutStats/${slugRoute}`,
+      query: {
+        sets: totalSets.value,
+        weight: totalWeight.value,
+        reps: totalReps.value
+      }
+    });
+  };
+
 };
 
 const updateReps = (exerciseId, setId, value) => {

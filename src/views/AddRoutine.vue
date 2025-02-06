@@ -11,7 +11,7 @@
             <img src="@/assets/img/svg/Hand-Grip.svg" alt="routine" />
             <Typography variant="h2">Add A Routine</Typography>
           </div>
-          <Button @click="saveRoutine" icon="../../public/check.svg" label="Save Routine" primary size="large" />
+          <Button @click="saveRoutine" icon="/public/check.svg" label="Save Routine" primary size="large" />
         </div>
         <div class="w-full gap-[8px] flex items-center py-[10px] px-[15px] border-b border-b-[#E2E8F0]">
           <input class=" w-full border-none outline-none text-[#425466]" placeholder="Enter a name"

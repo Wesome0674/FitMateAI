@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Button from '@/stories/Button.vue';
 import Typography from '@/stories/Typography.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { usePostWorkoutData } from '@/stores/SaveWorkoutInDB';
 
@@ -15,11 +15,17 @@ const saveWorkout = async () => {
         volume: totalWeight.value,
         reps: totalReps.value
     };
+    console.log("Données envoyées :", stats)
 
     await saveData(stats);
-
+    isSaved.value = true;
 }
 
+const handleSaveWorkout = () => {
+    if (!isSaved.value) {
+        saveWorkout();
+    }
+};
 
 const route = useRoute();
 const router = useRouter();
@@ -27,6 +33,9 @@ const router = useRouter();
 const totalSets = computed(() => Number(route.query.sets) || 0);
 const totalWeight = computed(() => Number(route.query.weight) || 0);
 const totalReps = computed(() => Number(route.query.reps) || 0);
+
+const isSaved = ref(false);
+
 </script>
 
 <template>
@@ -37,7 +46,9 @@ const totalReps = computed(() => Number(route.query.reps) || 0);
                     <img src="@/assets/img/svg/trophy.svg" alt="routine" />
                     <Typography variant="h2">Your Stats !</Typography>
                 </div>
-                <Button @click="saveWorkout" icon="/cloud-arrow-down.svg" label="Save Workout" primary size="large" />
+                <Button @click="handleSaveWorkout" icon="/cloud-arrow-down.svg"
+                    :label="isSaved ? 'Workout Saved' : 'Save Workout'" primary size="large" />
+
             </div>
             <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
         </div>

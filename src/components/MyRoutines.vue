@@ -13,7 +13,7 @@
           <Typography variant="h2">My routines ({{ filteredRoutines.length }})</Typography>
         </div>
         <RouterLink to="/addWorkout">
-          <Button icon="../../public/plus.svg" label="Add Routine" primary size="large" />
+          <Button icon="/public/plus.svg" label="Add Routine" primary size="large" />
         </RouterLink>
       </div>
 
@@ -42,16 +42,17 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref, watch } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import Typography from '@/stories/Typography.vue'
 import Button from '@/stories/Button.vue'
-import { useDbData } from '@/stores/GetDataFromDB'
+import { createDbDataStore } from '@/stores/GetDataFromDB'
 import { RouterLink, useRouter } from 'vue-router'
 
 const searchQuery = ref('')
 const router = useRouter()
 
-const { fetchDBData, isLoading, error, state } = useDbData()
+const dbData = createDbDataStore('routines')
+const { fetchDBData, isLoading, error, state } = dbData
 
 onMounted(() => {
   fetchDBData('routines')
@@ -71,7 +72,4 @@ const goToSlugPage = (id) => {
   router.push(`/routine/${id}`)
 }
 
-watch(() => state.data, (newData) => {
-  console.log('Données mises à jour:', newData)
-}, { immediate: true })
 </script>

@@ -72,10 +72,4 @@ const stopTimer = () => {
     timerRunning.value = false;
 };
 
-const resetTimer = () => {
-    stopTimer();
-    time.value = 30;
-};
-
-
 </script>

@@ -9,7 +9,8 @@
         </div>
 
 
-        <Button @click="router.push('/WorkoutStats')" icon="../../public/log-in.svg" label="End Workout" primary size="large" />
+        <Button @click="goToWorkoutStats" icon="../../public/log-in.svg" label="End Workout" primary size="large" />
+
 
       </div>
       <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
@@ -143,6 +144,17 @@ const totalReps = computed(() => {
 const updateVolume = (exerciseId, setId, value) => {
   setDataStore.updateSet(exerciseId, setId, "weight", value);
 
+};
+
+const goToWorkoutStats = () => {
+  router.push({
+    path: `/WorkoutStats/${slugRoute}`,
+    query: {
+      sets: totalSets.value,
+      weight: totalWeight.value,
+      reps: totalReps.value
+    }
+  });
 };
 
 const updateReps = (exerciseId, setId, value) => {

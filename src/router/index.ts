@@ -34,7 +34,7 @@ const router = createRouter({
       component: StartRoutine ,
     },
     {
-      path: '/workoutStats',
+      path: '/workoutStats/:id',
       name: 'workoutStats',
       component: WorkoutStats,
     },

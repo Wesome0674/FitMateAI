@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup >
 import { onMounted, computed, ref } from 'vue'
 import Typography from '@/stories/Typography.vue'
 import Button from '@/stories/Button.vue'

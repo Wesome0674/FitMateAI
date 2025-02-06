@@ -25,7 +25,7 @@
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from "vue";
 import Typography from "@/stories/Typography.vue";
 import Button from "@/stories/Button.vue";
@@ -36,7 +36,7 @@ defineProps({
 
 const time = ref(30);
 const timerRunning = ref(false);
-let timerInterval = null;
+let timerInterval: number = 0;
 
 const formattedTime = computed(() => {
     const minutes = Math.floor(time.value / 60);
@@ -44,7 +44,7 @@ const formattedTime = computed(() => {
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 });
 
-const adjustTime = (amount) => {
+const adjustTime = (amount: number) => {
     if (!timerRunning.value) {
         time.value = Math.max(0, time.value + amount);
     }

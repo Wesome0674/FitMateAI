@@ -6,7 +6,7 @@
 
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import Typography from '@/stories/Typography.vue';
 import Button from '@/stories/Button.vue';
 import { useRouter } from 'vue-router';

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Button from '@/stories/Button.vue';
 import Typography from '@/stories/Typography.vue';
 import { computed, ref } from 'vue';

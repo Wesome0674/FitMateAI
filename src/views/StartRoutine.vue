@@ -9,7 +9,7 @@
 
         <Button
           @click="goToWorkoutStats"
-          icon="/public/log-in.svg"
+          :icon="login"
           label="End Workout"
           primary
           size="large"
@@ -55,7 +55,7 @@
         </div>
         <Button
           @click=""
-          icon="/public/pen-line.svg"
+          :icon="penline"
           label="Edit Routine"
           primary
           size="large"
@@ -146,6 +146,8 @@ import Button from "@/stories/Button.vue";
 import SetsInput from "@/components/SetsInput.vue";
 import { useSetData } from "@/stores/Sets";
 import RestTimer from "@/components/RestTimer.vue";
+import login from "@/assets/img/svg/login.svg";
+import penline from "@/assets/img/svg/penline.svg";
 
 const setDataStore = useSetData();
 const { addSets, getSets, calculateTotalWeight, calculateTotalReps } =

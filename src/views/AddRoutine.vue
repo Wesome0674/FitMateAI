@@ -12,7 +12,7 @@
           </div>
           <Button
             @click="saveRoutine"
-            icon="/public/check.svg"
+            :icon="check"
             label="Save Routine"
             primary
             size="large"
@@ -89,6 +89,7 @@ import { onMounted, computed, ref } from "vue";
 import { useApiData } from "@/stores/getApiData";
 import { usePostData } from "@/stores/SaveRoutineInDB";
 import { useRouter } from "vue-router";
+import check from "@/assets/img/svg/check.svg";
 
 type Exercise = {
   id: number;

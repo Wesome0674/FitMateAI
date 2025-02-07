@@ -13,7 +13,7 @@
           <Typography variant="h2">My routines ({{ filteredRoutines.length }})</Typography>
         </div>
         <RouterLink to="/addWorkout">
-          <Button icon="/public/plus.svg" label="Add Routine" primary size="large" />
+          <Button :icon="plus" label="Add Routine" primary size="large" />
         </RouterLink>
       </div>
 
@@ -47,6 +47,7 @@ import Typography from '@/stories/Typography.vue'
 import Button from '@/stories/Button.vue'
 import { useRoutine } from '@/stores/GetRoutinesFromDB'
 import { RouterLink, useRouter } from 'vue-router'
+import plus from '@/assets/img/svg/plus.svg'
 
 type Exercise = {
   id: number;

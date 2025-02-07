@@ -4,7 +4,7 @@ import Typography from '@/stories/Typography.vue';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { usePostWorkoutData } from '@/stores/SaveWorkoutInDB';
-
+import cloud from '@/assets/img/svg/cloud-arrow-down.svg';
 
 const { saveData } = usePostWorkoutData();
 
@@ -46,7 +46,7 @@ const isSaved = ref(false);
                     <img src="@/assets/img/svg/trophy.svg" alt="routine" />
                     <Typography variant="h2">Your Stats !</Typography>
                 </div>
-                <Button @click="handleSaveWorkout" icon="/cloud-arrow-down.svg"
+                <Button @click="handleSaveWorkout" :icon="cloud"
                     :label="isSaved ? 'Workout Saved' : 'Save Workout'" primary size="large" />
 
             </div>

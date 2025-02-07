@@ -41,18 +41,34 @@
   </div>
 </template>
 
-<script setup >
+<script setup lang="ts" >
 import { onMounted, computed, ref } from 'vue'
 import Typography from '@/stories/Typography.vue'
 import Button from '@/stories/Button.vue'
-import { createDbDataStore } from '@/stores/GetDataFromDB'
+import { useRoutine } from '@/stores/GetRoutinesFromDB'
 import { RouterLink, useRouter } from 'vue-router'
+
+type Exercise = {
+  id: number;
+  bodyPart: string;
+  equipment: string;
+  name: string;
+  image: string;
+  instructions: string[];
+  secondaryMuscles: string[];
+  target: string;
+};
+
+type Routine = {
+  id: number;
+  name: string;
+  exercises: Exercise[];
+};
 
 const searchQuery = ref('')
 const router = useRouter()
 
-const dbData = createDbDataStore('routines')
-const { fetchDBData, isLoading, error, state } = dbData
+const { fetchDBData, isLoading, error, state } = useRoutine()
 
 onMounted(() => {
   fetchDBData('routines')
@@ -61,14 +77,14 @@ onMounted(() => {
 const filteredRoutines = computed(() => {
   const routineList = Array.isArray(state.data.routines) ? state.data.routines : []
 
-  const filtered = routineList.filter((routine) => {
+  const filtered: Routine[] = routineList.filter((routine: Routine) => {
     return routine.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   })
 
   return filtered.sort((a, b) => a.name.localeCompare(b.name))
 })
 
-const goToSlugPage = (id) => {
+const goToSlugPage = (id: Number) => {
   router.push(`/routine/${id}`)
 }
 

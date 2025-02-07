@@ -37,7 +37,7 @@ export const useRoutine = defineStore('useRoutine', () => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const fetchDBData = async (urlKey: keyof typeof DB_URL): Promise<void> => {
-    const url = `${BACKEND_URL}${DB_URL[urlKey]}`;
+    const url = `${BACKEND_URL}/${DB_URL[urlKey]}`;
     isLoading.value = true;
     error.value = null;
 

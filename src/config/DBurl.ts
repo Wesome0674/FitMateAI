@@ -1,4 +1,4 @@
 export const DB_URL = {
-   routines: "/routines",
-   stats: "/stats"
+   routines: "routines",
+   stats: "stats"
 }

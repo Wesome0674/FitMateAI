@@ -3,7 +3,7 @@
     <div class="space-y-[20px]">
       <div class="w-full flex items-center justify-between">
         <div class="flex items-center gap-[8px]">
-          <img src="@/assets/img/svg/calendar.svg" alt="routine" />
+          <img src="@/assets/img/svg/Calendar.svg" alt="routine" />
           <Typography variant="h2">{{ routine.name }}</Typography>
         </div>
 

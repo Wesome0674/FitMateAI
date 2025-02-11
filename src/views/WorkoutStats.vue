@@ -13,7 +13,8 @@ const saveWorkout = async () => {
         rate: 95,
         sets: totalSets.value,
         volume: totalWeight.value,
-        reps: totalReps.value
+        reps: totalReps.value,
+        feeling: feeling.value
     };
     console.log("Données envoyées :", stats)
 
@@ -36,6 +37,8 @@ const totalReps = computed(() => Number(route.query.reps) || 0);
 
 const isSaved = ref(false);
 
+const feeling = ref('');
+
 </script>
 
 <template>
@@ -46,8 +49,8 @@ const isSaved = ref(false);
                     <img src="@/assets/img/svg/trophy.svg" alt="routine" />
                     <Typography variant="h2">Your Stats !</Typography>
                 </div>
-                <Button @click="handleSaveWorkout" :icon="cloud"
-                    :label="isSaved ? 'Workout Saved' : 'Save Workout'" primary size="large" />
+                <Button @click="handleSaveWorkout" :icon="cloud" :label="isSaved ? 'Workout Saved' : 'Save Workout'"
+                    primary size="large" />
 
             </div>
             <div class="w-full h-[1px] border-b border-b-[#475569]/10 border-dashed"></div>
@@ -77,6 +80,17 @@ const isSaved = ref(false);
                     <Typography variant="h2">Total reps ({{ totalReps }})</Typography>
                     <img src="@/assets/img/svg/check-badge.svg" alt="arrow-up" />
                 </div>
+            </div>
+        </div>
+        <div class="space-y-[20px] flex flex-col items-center">
+            <Typography class="text-center" variant="h2">What's Your Overall <br> Feeling ?</Typography>
+            <div class="flex items-center gap-[20px]">
+                <img class="opacity-50" @click="feeling = 'sad'" :class="{ 'opacity-100': feeling === 'sad' }"
+                    src="@/assets/img/svg/face-frown.svg" alt="happy" />
+                <img class="opacity-50" @click="feeling = 'neutral'" :class="{ 'opacity-100': feeling === 'neutral' }"
+                    src="@/assets/img/svg/neutral.svg" alt="sad" />
+                <img class="opacity-50" @click="feeling = 'happy'" :class="{ 'opacity-100': feeling === 'happy' }"
+                    src="@/assets/img/svg/face-smile.svg" alt="neutral" />
             </div>
         </div>
         <Button @click="router.push('/workout')" label="Return To Home" :primary="false" class="w-full" size="large" />

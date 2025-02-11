@@ -53,13 +53,6 @@
           <img src="@/assets/img/svg/biceps.svg" alt="routine" />
           <Typography variant="h2">Exercises</Typography>
         </div>
-        <Button
-          @click=""
-          :icon="penline"
-          label="Edit Routine"
-          primary
-          size="large"
-        />
       </div>
 
       <div

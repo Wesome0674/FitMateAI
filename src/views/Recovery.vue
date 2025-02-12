@@ -5,9 +5,7 @@
 
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import Typography from '@/stories/Typography.vue';
-
-
-
 </script>
+

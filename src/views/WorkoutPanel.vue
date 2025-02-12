@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import MyRoutines from '@/components/MyRoutines.vue';
 import SavedWorkout from '@/components/SavedWorkout.vue';
 

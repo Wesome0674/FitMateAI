@@ -6,6 +6,7 @@ type Stats = {
   sets: number;
   volume: number;
   reps: number;
+  feeling: string;
 };
 
 export const usePostWorkoutData = defineStore("saveWorkoutInDB", () => {
@@ -30,6 +31,7 @@ export const usePostWorkoutData = defineStore("saveWorkoutInDB", () => {
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
+        
       }
     } catch (err: any) {
       error.value = err.message;

@@ -30,6 +30,10 @@
           <Typography variant="h6">{{ workout.sets }} set(s)</Typography>
           <Typography variant="h6">{{ workout.volume }}kg</Typography>
           <Typography variant="h6">{{ workout.reps }} rep(s)</Typography>
+          <div class="flex items-center gap-[8px]">
+            <Typography variant="h6">Feeling:</Typography>
+            <img :src="getFeelingImage(workout.feeling)" class="w-[15px] h-[15px]" alt="feeling" />
+          </div>
         </div>
         <Typography theme="tercery" variant="h6">{{
           formatDate(workout.createdAt)
@@ -40,9 +44,12 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, watch } from 'vue';
 import Typography from '@/stories/Typography.vue';
 import { useSavedWorkout } from '@/stores/GetSavedWorkoutFromDB';
+import goodFeeling from '@/assets/img/svg/face-smile.svg';
+import averageFeeling from '@/assets/img/svg/neutral.svg';
+import badFeeling from '@/assets/img/svg/face-frown.svg';
 
 const { fetchDBData, isLoading, error, state } = useSavedWorkout();
 
@@ -59,4 +66,16 @@ const formatDate = (isoDate: string) => {
 const saveWorkout = computed(() => {
   return Array.isArray(state.data.stats) ? state.data.stats : [];
 });
+
+const getFeelingImage = (feeling: string) => {
+  if (feeling === 'BAD') return badFeeling;
+  if (feeling === 'AVERAGE') return averageFeeling;
+  if (feeling === 'GOOD') return goodFeeling;
+  return '';
+};
+
+watch(saveWorkout, (newVal) => {
+  console.log(newVal);
+});
+
 </script>

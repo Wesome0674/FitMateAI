@@ -8,6 +8,7 @@ interface Workout {
   sets: number;
   volume: number;
   reps: number;
+  feeling: string;
   createdAt: string; 
 }
 
